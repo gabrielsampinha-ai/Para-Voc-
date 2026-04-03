@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Duda ❤️</title>
+
+<style>
+body{
+ margin:0;
+ font-family: Georgia, serif;
+ background: radial-gradient(circle,#120008,#000);
+ color:#fff;
+ overflow:hidden;
+ animation:pulse 4s infinite;
+}
+@keyframes pulse{
+0%,100%{background-size:100% 100%;}
+50%{background-size:115% 115%;}
+}
+
+.card{
+ margin:12px;
+ padding:18px;
+ border-radius:20px;
+ background:rgba(0,0,0,0.75);
+ box-shadow:0 0 40px rgba(255,0,100,0.6);
+ text-align:center;
+}
+
+h1{color:#ff4d6d;}
+
+.poem{white-space:pre-line;font-size:16px;}
+
+button{
+margin-top:20px;
+padding:12px;
+background:#ff4d6d;
+border:none;
+border-radius:10px;
+color:#fff;
+font-size:16px;
+}
+
+#carta{
+display:none;
+margin-top:20px;
+background:#fff0f5;
+color:#5a0a2c;
+padding:15px;
+border-radius:15px;
+font-family:cursive;
+}
+
+.heart{
+position:absolute;
+color:#ff4d6d;
+animation:up linear infinite;
+}
+@keyframes up{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+
+.cupid{
+position:absolute;
+font-size:22px;
+animation:fly 6s linear infinite;
+}
+@keyframes fly{
+0%{left:-10%;top:30%;}
+100%{left:110%;top:50%;}
+}
+
+#brokenHeart{
+position:fixed;
+font-size:70px;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:none;
+animation:break 1s forwards;
+}
+@keyframes break{
+0%{transform:scale(1);}
+50%{transform:scale(1.6) rotate(15deg);}
+100%{transform:scale(0);opacity:0;}
+}
+
+/* chuva leve */
+.rain{
+ position:absolute;
+ width:2px;
+ height:15px;
+ background:#aaa;
+ animation:rain 1s linear infinite;
+}
+@keyframes rain{
+from{transform:translateY(-10vh);}
+to{transform:translateY(100vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- música estilo romântico (substituível) -->
+<audio autoplay loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<!-- SUA VOZ -->
+<audio id="voz">
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+<h1>💖 Maria Eduarda 💖</h1>
+
+<div class="poem" id="poem"></div>
+
+<button onclick="abrirTudo()">Clique aqui</button>
+
+<div id="carta"></div>
+
+</div>
+
+<div id="brokenHeart">💔</div>
+
+<script>
+
+// TEXTO DA CARTA (cinematográfico)
+const cartaTexto = `Maria Eduarda...
+
+Boa tarde, Duda...
+
+Eu tentei seguir normalmente... mas não dá.
+
+Porque você não é uma pessoa comum na minha vida.
+
+Você é aquela pessoa que chegou... e mudou tudo.
+
+E talvez eu tenha errado justamente por sentir demais.
+
+Mas eu nunca quis te machucar.
+
+Isso... nunca.
+
+Eu sinto sua falta.
+
+Falta das conversas, das risadas, da forma como você fazia tudo parecer mais leve.
+
+Você virou parte dos meus dias...
+
+E perder isso... dói.
+
+Eu amo você.
+
+E não é algo leve... é algo real.
+
+Eu queria poder te olhar agora...
+
+E dizer isso de verdade.
+
+Sem erro. Sem distância.
+
+Só eu... e você.
+
+Se você chegou até aqui...
+
+Eu vou estar esperando sua resposta.
+
+Não esquece...
+
+eu te amo.
+
+— Gabriel`;
+
+// escrever carta na hora
+function escreverCarta(){
+ let el=document.getElementById("carta");
+ el.style.display="block";
+ el.innerHTML="";
+ let i=0;
+ function digitar(){
+  if(i<cartaTexto.length){
+   el.innerHTML+=cartaTexto.charAt(i);
+   i++;
+   setTimeout(digitar,25);
+  }
+ }
+ digitar();
+}
+
+// ação principal
+function abrirTudo(){
+ escreverCarta();
+
+ document.getElementById("brokenHeart").style.display="block";
+
+ if(navigator.vibrate){
+  navigator.vibrate([200,100,200]);
+ }
+
+ document.getElementById("voz").play();
+}
+
+// poema inicial
+const poemText=`Maria Eduarda...
+
+Tem coisas que a gente sente...
+
+E você... é uma delas.`;
+
+let p=0;
+function typing(){
+ if(p<poemText.length){
+ document.getElementById("poem").innerHTML+=poemText.charAt(p);
+ p++;
+ setTimeout(typing,40);
+ }
+}
+typing();
+
+// corações
+function heart(){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(Math.random()*50+10)+"px";
+ h.style.animationDuration=(Math.random()*5+3)+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),8000);
+}
+setInterval(heart,200);
+
+// cupido
+function cupid(){
+ let c=document.createElement("div");
+ c.className="cupid";
+ c.innerHTML="🏹💘";
+ document.body.appendChild(c);
+ setTimeout(()=>c.remove(),6000);
+}
+setInterval(cupid,4000);
+
+// chuva leve
+function rain(){
+ let r=document.createElement("div");
+ r.className="rain";
+ r.style.left=Math.random()*100+"vw";
+ document.body.appendChild(r);
+ setTimeout(()=>r.remove(),1000);
+}
+setInterval(rain,100);
+
+</script>
+
+</body>
+</html>
